@@ -17,7 +17,9 @@
     
     <script>
         // Initialize the agent at application startup.
-        const fpPromise = FingerprintJS.load();
+        const fpPromise = FingerprintJS.load({
+        token: 'XeFBrS5F1DSru1fddrpY'  // Replace with your actual API key
+        });
 
         // Get the visitor identifier when needed.
         fpPromise
