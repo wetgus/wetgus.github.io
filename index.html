@@ -9,20 +9,36 @@
     <h1>FingerprintJS Integration</h1>
     <div id="fingerprint-data"></div>
 
-   <script>
+  <script>
   // Initialize the agent on page load.
   const fpPromise = import('https://fpjscdn.net/v3/XeFBrS5F1DSru1fddrpY')
     .then(FingerprintJS => FingerprintJS.load({
       region: "eu"
     }))
 
-  // Get the visitorId when you need it.
+  // Get the visitorId and other information.
   fpPromise
     .then(fp => fp.get())
     .then(result => {
-      const visitorId = result.visitorId
-      console.log(visitorId)
+      const visitorId = result.visitorId;
+      const { ip, browserName, os, device } = result;
+
+      console.log("Visitor ID:", visitorId);
+      console.log("IP Address:", ip);
+      console.log("Browser:", browserName);
+      console.log("Operating System:", os);
+      console.log("Device Type:", device);
+
+      // Display results on the webpage
+      document.getElementById('fingerprint-data').innerHTML = `
+        <p>Visitor ID: ${visitorId}</p>
+        <p>IP Address: ${ip}</p>
+        <p>Browser: ${browserName}</p>
+        <p>Operating System: ${os}</p>
+        <p>Device Type: ${device}</p>
+      `;
     })
+    .catch(error => console.error('Error fetching fingerprint:', error));
 </script>
 </body>
 </html>
