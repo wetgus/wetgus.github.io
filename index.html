@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My GitHub Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FingerprintJS Demo</title>
 </head>
 <body>
-    <h1>Hello, welcome to my GitHub Page!</h1>
-    <p>This is a test website.</p>
+    <h1>FingerprintJS Integration</h1>
+    <div id="fingerprint-data"></div>
+
+    <!-- FingerprintJS script -->
+    <script
+        async
+        src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"
+    ></script>
+    
+    <script>
+        // Initialize the agent at application startup.
+        const fpPromise = FingerprintJS.load();
+
+        // Get the visitor identifier when needed.
+        fpPromise
+            .then(fp => fp.get())
+            .then(result => {
+                // This is the visitor identifier:
+                const visitorId = result.visitorId;
+                console.log(visitorId);
+                
+                // Display the fingerprint data on the webpage
+                document.getElementById('fingerprint-data').innerHTML = `Visitor ID: ${visitorId}`;
+            });
+    </script>
 </body>
 </html>
+
