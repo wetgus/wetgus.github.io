@@ -9,30 +9,27 @@
     <h1>FingerprintJS Integration</h1>
     <div id="fingerprint-data"></div>
 
-    <!-- FingerprintJS script -->
+    <!-- Load FingerprintJS asynchronously -->
     <script
         async
         src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"
     ></script>
     
     <script>
-        // Initialize the agent at application startup.
-        const fpPromise = FingerprintJS.load({
-        token: 'XeFBrS5F1DSru1fddrpY'  // Replace with your actual API key
-        });
-
-        // Get the visitor identifier when needed.
-        fpPromise
-            .then(fp => fp.get())
-            .then(result => {
-                // This is the visitor identifier:
-                const visitorId = result.visitorId;
-                console.log(visitorId);
-                
-                // Display the fingerprint data on the webpage
-                document.getElementById('fingerprint-data').innerHTML = `Visitor ID: ${visitorId}`;
+        // Wait for the FingerprintJS script to be loaded before calling it
+        window.addEventListener('load', () => {
+            // Initialize the FingerprintJS library after the script is loaded
+            FingerprintJS.load().then(fp => {
+                fp.get().then(result => {
+                    // This is the visitor identifier:
+                    const visitorId = result.visitorId;
+                    console.log(visitorId);
+                    
+                    // Display the visitor ID on the webpage
+                    document.getElementById('fingerprint-data').innerHTML = `Visitor ID: ${visitorId}`;
+                });
             });
+        });
     </script>
 </body>
 </html>
-
