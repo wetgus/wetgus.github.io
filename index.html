@@ -18,11 +18,15 @@
 
   // Get the visitorId and other information.
   fpPromise
-    .then(fp => fp.get())
+    .then(fp => fp.get({ extendedResult: true }))
     .then(result => {
       const visitorId = result.visitorId;
-      const { ip, browserName, os, device } = result;
-
+      const requestId = result.requestId; // Capture request ID
+      const visitorId = result.ip;
+      const visitorId = result.browserName;
+      const visitorId = result.os;
+      const visitorId = result.device;
+        
       console.log("Visitor ID:", visitorId);
       console.log("IP Address:", ip);
       console.log("Browser:", browserName);
